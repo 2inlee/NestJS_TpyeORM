@@ -29,7 +29,10 @@ export class UserModel{
     nullable: true,
     // 이후에는 값 변경 불가능
     update: false,
-
+    // find()를 실행할 때 기본으로 값을 불러올지
+    //기본이 true이다.
+    select: false,
+    default: 'default title',
 })
   title: string;
 
