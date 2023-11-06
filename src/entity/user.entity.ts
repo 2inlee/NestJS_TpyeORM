@@ -15,7 +15,22 @@ export class UserModel{
   id: number;
 
   // 제목
-  @Column()
+  @Column({
+
+    //데이터베이스에서 인지하는 칼럼 타입
+    //자동으로 유추됨
+    type:'varchar',
+    //데이터베이스 칼럼 이름
+    name: 'title',
+    //데이터베이스 칼럼 길이
+    //데이터베이스 칼럼 길이를 300으로 제한한다.
+    length: 300,
+    //null 허용 여부
+    nullable: true,
+    // 이후에는 값 변경 불가능
+    update: false,
+
+})
   title: string;
 
   // 데이터 생성 일자
