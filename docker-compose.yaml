@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:15
     restart: always
-    volimes:
+    volumes:
       - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
