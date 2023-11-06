@@ -1,6 +1,7 @@
-import { Version } from "@nestjs/common";
-import { Column, CreateDateColumn, Generated, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from "typeorm";
+import { Controller, Version } from "@nestjs/common";
+import { Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from "typeorm";
 
+@Entity()
 export class UserModel{
 
   // ID
@@ -10,7 +11,7 @@ export class UserModel{
   
   // UUID
   // asdasda1231sdasd-1235asdsadsd-1231412asdasdasd-123124123asdfsdf
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: number;
 
   // 제목
@@ -37,4 +38,4 @@ export class UserModel{
   @Generated('uuid')
   additionalId: string;
 
-}
+} 
