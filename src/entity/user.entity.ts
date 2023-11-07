@@ -1,6 +1,12 @@
 import { Controller, Version } from "@nestjs/common";
 import { Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from "typeorm";
 
+
+export enum Role{
+  USER = "user",
+  ADMIN = "admin",
+}
+
 @Entity()
 export class UserModel{
 
@@ -16,7 +22,6 @@ export class UserModel{
 
   // 제목
   @Column({
-
     //데이터베이스에서 인지하는 칼럼 타입
     //자동으로 유추됨
     type:'varchar',
@@ -35,6 +40,13 @@ export class UserModel{
     default: 'default title',
 })
   title: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role : Role;
 
   // 데이터 생성 일자
   // 데이터가 생성되는 날짜와 시간이 자동으로 찍힌다
@@ -55,5 +67,4 @@ export class UserModel{
   @Column()
   @Generated('uuid')
   additionalId: string;
-
-} 
+}
