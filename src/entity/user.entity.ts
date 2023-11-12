@@ -1,5 +1,7 @@
 import { Controller, Version } from "@nestjs/common";
-import { Column, CreateDateColumn, Entity, Generated, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Generated, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn, VersionColumn } from "typeorm";
+import { ProfileModel } from "./profile.entity";
+import { PostModel } from "./post.entity";
 
 
 export enum Role{
@@ -20,26 +22,29 @@ export class UserModel{
   @PrimaryGeneratedColumn()
   id: number;
 
+
+  @Column()
+  email: string;
   // 제목
-  @Column({
-    //데이터베이스에서 인지하는 칼럼 타입
-    //자동으로 유추됨
-    type:'varchar',
-    //데이터베이스 칼럼 이름
-    name: 'title',
-    //데이터베이스 칼럼 길이
-    //데이터베이스 칼럼 길이를 300으로 제한한다.
-    length: 300,
-    //null 허용 여부
-    nullable: true,
-    // 이후에는 값 변경 불가능
-    update: false,
-    // find()를 실행할 때 기본으로 값을 불러올지
-    //기본이 true이다.
-    select: false,
-    default: 'default title',
-})
-  title: string;
+//   @Column({
+//     //데이터베이스에서 인지하는 칼럼 타입
+//     //자동으로 유추됨
+//     type:'varchar',
+//     //데이터베이스 칼럼 이름
+//     name: 'title',
+//     //데이터베이스 칼럼 길이
+//     //데이터베이스 칼럼 길이를 300으로 제한한다.
+//     length: 300,
+//     //null 허용 여부
+//     nullable: true,
+//     // 이후에는 값 변경 불가능
+//     update: false,
+//     // find()를 실행할 때 기본으로 값을 불러올지
+//     //기본이 true이다.
+//     select: false,
+//     default: 'default title',
+// })
+//   title: string;
 
   @Column({
     type: 'enum',
@@ -67,4 +72,10 @@ export class UserModel{
   @Column()
   @Generated('uuid')
   additionalId: string;
+
+  @OneToOne(()=>ProfileModel, (profile) => profile.user )
+  profile: ProfileModel;
+
+  @OneToMany(()=>PostModel, (post) => post.author)
+  posts: PostModel;
 }
